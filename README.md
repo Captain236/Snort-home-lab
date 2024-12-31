@@ -15,10 +15,10 @@
 - (4) protocol support
 
 ## Tools used in this project :-
--(1) **Vmware**
--(2) **Ubuntu**
--(3) **Snort installed in ubuntu**
--(4) **windows machine for request generate
+- (1) **Vmware**
+- (2) **Ubuntu**
+- (3) **Snort installed in ubuntu**
+- (4) **windows machine for request generate**
 
 ## Objective of this project :-
 (1) Understand Intrusion Detection Systems (IDS):
