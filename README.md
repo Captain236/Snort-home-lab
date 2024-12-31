@@ -49,6 +49,13 @@ Interpret and analyze Snort alert logs to identify security incidents.
 (*)Network Protocol Understanding:
 Deepen your knowledge of protocols like TCP, UDP, HTTP, and ICMP while working with traffic data.
 
+## Let's Begin....
+
+## Step 1 :-
+- First we need to install the snort on ubuntu machine .
+- open the ubuntu terminal and make sure every package is update and upgrade . for this ( Type < sudo apt-get update && apt-get upgrade>) and hit enter
+- 
+
 
 
 
