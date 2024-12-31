@@ -14,6 +14,12 @@
 - (3) OS Fingerprinting
 - (4) protocol support
 
+## Tools used in this project :-
+(1) **Vmware**
+(2) **Ubuntu**
+(3) **Snort installed in ubuntu**
+(4) **windows machine for request generate
+
 ## Objective of this project :-
 (1) Understand Intrusion Detection Systems (IDS):
 Learn the role of Snort as an IDS and its importance in network security.
@@ -101,6 +107,32 @@ Deepen your knowledge of protocols like TCP, UDP, HTTP, and ICMP while working w
 - We are going to write an icmp rule that will detect or monitor any icmp packet coming to our network . For this type **alert icmp any any -> $HOME_NET any (msg : "icmp packet detected" ; sid:10001 ; rev:1;)
 - alert icmp any means any ip any means any port traffic comming to any ip range of home network will generate the alert the icmp packet detected . sid:10001 = id of the signature , rev:1 = version of the signature . It will generate the alert when any traffic is come to hoem network .
 ![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 4_14_12 PM](https://github.com/user-attachments/assets/e24c6316-66a2-43da-845a-c194f05f398c)
+- Now we are going to run the snort ( type **sudo snort -q -l /var/log/snort -i ens33 -A console -c /etc/snort/snort.conf** ) and hit enter.
+- Note ( **-q = quite mode , -l = set the logging directory , i = interface , A = alert**)
+- Now open the windows terminal and type **ping ip_address_of_ubuntu_machine** (eg: ping 192.168.190.131) & hit enter . It will send the icmp ping request to the ubuntu machine which will be detected by snort . We can see in the picture .
+![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 8_45_14 PM](https://github.com/user-attachments/assets/92d5beb5-6a67-44e4-8767-2b2adf9eb830)
+- That means our snort is generating an alarm when someone is trying to send the icmp ping request to our snort IDS.
+
+- (2) Write the rule of ssh login :- when someone try to login with ssh to our ubuntu machine the snort should generate an alert .
+-  type (**alert ssh any any -> $HOME_NET 192.168.190.131 ( msg : "ssh Authentication detected: ; sid:1002 ; rev:1;**)
+- Now type on windows terminal (**ssh 192.168.190.131) . It will try to login ssh to our ubuntu machine and our snort will generate an alarm .
+![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 8_45_14 PM](https://github.com/user-attachments/assets/d3dbb6cc-5e6a-419e-aba6-62a95a05afda)
+
+- We can see the log files which snort generate in ( **etc/var/log/snort** )
+  ![(4) Intrusion Detection With Snort - YouTube - Google Chrome 12_31_2024 9_06_57 PM](https://github.com/user-attachments/assets/da2e90cf-6e96-4253-b90a-9f58c1c94bdd)
+
+  - We can also check the log files in wireshark by uploading the log file on wireshark.
+
+  ## Conclusion :-
+Setting up a Snort home lab is a significant milestone in advancing your understanding of intrusion detection and prevention systems (IDS/IPS). Through this project, you have achieved the following:
+Practical Experience: You gained hands-on experience in configuring Snort, a powerful open-source IDS/IPS tool, enhancing your practical skills in network security.
+Network Traffic Analysis: By capturing and analyzing network traffic, you developed a deeper understanding of normal and malicious network behaviors, crucial for identifying security threats.
+Rule Creation and Tuning: Writing and tuning Snort rules allowed you to customize detection mechanisms, improving your ability to respond to specific security scenarios.
+Home Lab Integration: Integrating Snort into your home lab environment provided a controlled setup to simulate real-world scenarios, helping bridge theoretical knowledge with practical application.
+Foundation for Advanced Security Practices: This project serves as a foundation for exploring advanced topics such as threat hunting, incident response, and integrating Snort with other security tools like SIEM systems.
+
+
+
 
 
 
