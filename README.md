@@ -69,11 +69,48 @@ Deepen your knowledge of protocols like TCP, UDP, HTTP, and ICMP while working w
  - To check if install is install properly or not open ubuntu terminal and ( Type **snort --version**) & hit enter . If snort is downloaded successfully it will show the ineterface like..
 ![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 11_55_49 AM](https://github.com/user-attachments/assets/de4daf5c-9383-49d9-bcae-cb20a4fb0136)
 
-- Now, (type **sudo ip link set (your interface name like ens0) promisc on**) & hit enter . (eg:- **sudo ip link set ens33 promisc on) . By this ,Promiscuous mode is enabled on the network interface card (NIC) when using Snort to allow it to capture all network traffic passing through the interface, not just the traffic intended for that specific machine.
+- Now, (type **sudo ip link set (your interface name like ens0) promisc on**) & hit enter . (eg:- **sudo ip link set ens33 promisc on**) . By this ,Promiscuous mode is enabled on the network interface card (NIC) when using Snort to allow it to capture all network traffic passing through the interface, not just the traffic intended for that specific machine.
 ![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 11_59_07 AM](https://github.com/user-attachments/assets/66cf87a5-a3af-445f-9fdd-594a40d1c3a6)
 
 - After sucessfully install the snort check the conguration file which is very important and core file  of the snort . (type **ls /etc/snort** ) & hit enter . The snort files are generally located in the /etc/ location.
 ![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 12_08_16 PM](https://github.com/user-attachments/assets/837dcb09-e3f8-41f9-a36b-52abcc8a9d8e)
+- Now open the **snort.conf** file for configuration (Type **sudo vim /etc/snort/snort.conf** ) . It will open the configuration file for configuration the snort.
+![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 2_46_17 PM](https://github.com/user-attachments/assets/e2b6fb35-dc2b-4d4c-b72f-3754c917cba3)
+
+- Now the configuration file is open . Scroll down and under the step1 section there will be an interface of **ip var $HOME_NET any** . This is for the actual network we want to monitor . We have give the ip range of our network which we want to monitor . In my case it is **192.168.190.131/24** .
+![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 2_57_50 PM](https://github.com/user-attachments/assets/c5db7327-a22e-4d5b-a84c-f68b8e6b5e34)
+
+- There will be *ipvar EXTERNAL_NET any . Leave it as it is because we want to monitor the traffic from any network or any incoming traffic so leave it as it is.
+- There will be local.rules file this file contain the rules which is created by snort by default . We want to create our own rules so comment these rules so snort ignor them . From **local.rules to befor step 8 line . ( Type line from to (eg:- in my case it is from 592,717/^/#) . it will comment down the line from 592 to 717 which snort will ignore so that we can make our own rules.
+  ![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 3_17_25 PM](https://github.com/user-attachments/assets/c1558d3d-19e5-42cb-9b53-0ec24049af30)
+
+- Now ( **type :wq**) to save the file and exit.
+![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 3_23_36 PM](https://github.com/user-attachments/assets/576ac473-d8b2-442e-9a80-bedf085d69e1)
+
+- Now just check once the snort.config file to ensure that every community rule is commented or remove . ( Type **sudo snort -T -i ens33 -c /etc/snort/snort.conf** ) and hit enter.
+![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 3_24_56 PM](https://github.com/user-attachments/assets/4a739836-5a70-4b2d-b718-a2c8bdb061fb)
+
+- We can see that there is no rule in the snort.conf file.
+![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 3_32_45 PM](https://github.com/user-attachments/assets/7e9bd298-d051-4998-b084-4d5999fc4902)
+- We have completed the configuration of snort let's begin with writing our own rules.
+
+## Step 3 :- Making the snort rules.
+- For making our own rules ( Type **sudo vim /etc/snort/rules/local.rules** ) and hit enter . The file will open and let's write our first rule.
+![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 3_40_21 PM](https://github.com/user-attachments/assets/f2ab01e4-af7b-417a-947e-9f741802bae9)
+
+- We are going to write an icmp rule that will detect or monitor any icmp packet coming to our network . For this type **alert icmp any any -> $HOME_NET any (msg : "icmp packet detected" ; sid:10001 ; rev:1;)
+- alert icmp any means any ip any means any port traffic comming to any ip range of home network will generate the alert the icmp packet detected . sid:10001 = id of the signature , rev:1 = version of the signature . It will generate the alert when any traffic is come to hoem network .
+![Ubuntu 64-bit - VMware Workstation 17 Player (Non-commercial use only) 12_31_2024 4_14_12 PM](https://github.com/user-attachments/assets/e24c6316-66a2-43da-845a-c194f05f398c)
+
+
+
+
+
+
+  
+ 
+
+
 
 
  
